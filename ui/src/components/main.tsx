@@ -22,6 +22,27 @@ import arrow from "../img/Vectorr.png"
 const Main = (props: any) => {
   const key = "AIzaSyCsxhaM3-9si1YOfppMVlPAn3Wp1Rs7r-s";
 
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+
+  const submitHandler = async (e: any) => { // e --> event
+    e.preventDefault()
+
+    try {
+      const {data} = await Axios.post('/api', {
+        name,
+        email,
+        message
+      })
+      console.log(data)
+      swal("Successfully sent information!", "Thanks a lot!", "success");
+    }catch (err){
+      console.log(err)
+    }
+
+  }
+
   const addScroll = (input: string) => {
     document.getElementById(input)!.addEventListener("click", () => {
       //scroll to each part when click to menu bar
@@ -49,27 +70,6 @@ const Main = (props: any) => {
       (element: Element) => addScroll(element.id)
     );
   }, []);
-
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-
-  const submitHandler = async (e: any) => { // e --> event
-    e.preventDefault()
-
-    try {
-      const {data} = await Axios.post('/api', {
-        name,
-        email,
-        message
-      })
-      console.log(data)
-      swal("Successfully sent information!", "Thanks a lot!", "success");
-    }catch (err){
-      console.log(err)
-    }
-
-  }
 
   return (
     <div
